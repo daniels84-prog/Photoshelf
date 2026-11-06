@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_bg">#1F4E5A</color>
+    <color name="window_light">#FFF8F6F2</color>
+    <color name="window_dark">#FF121414</color>
+</resources>

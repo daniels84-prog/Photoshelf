@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- back photo -->
+    <path android:fillColor="#9FC9C4"
+        android:pathData="M38,30 L74,30 Q78,30 78,34 L78,62 Q78,66 74,66 L38,66 Q34,66 34,62 L34,34 Q34,30 38,30 Z" />
+    <!-- front photo -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M32,40 L70,40 Q74,40 74,44 L74,74 Q74,78 70,78 L32,78 Q28,78 28,74 L28,44 Q28,40 32,40 Z" />
+    <!-- sun -->
+    <path android:fillColor="#F2B544"
+        android:pathData="M61,52 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" />
+    <!-- hills -->
+    <path android:fillColor="#2E7A73"
+        android:pathData="M31,74 L44,57 L53,67 L58,61 L71,74 Z" />
+    <!-- shelf -->
+    <path android:fillColor="#F2B544"
+        android:pathData="M24,82 L84,82 L84,86 L24,86 Z" />
+</vector>
