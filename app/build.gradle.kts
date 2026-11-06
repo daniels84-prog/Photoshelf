@@ -18,23 +18,29 @@ android {
         versionName = "1.0.$buildNumber"
     }
 
-    // One fixed key so every new build installs over the last one.
+    // The release key is NOT in the repo. GitHub Actions writes it from the
+    // PHOTOSHELF_KEYSTORE_BASE64 / PHOTOSHELF_KEY_PASSWORD secrets, so every build
+    // is signed the same way and installs over the last one.
+    val keystorePath = System.getenv("PHOTOSHELF_KEYSTORE_FILE")
+    val releasePassword = System.getenv("PHOTOSHELF_KEY_PASSWORD")
+    val hasReleaseKey = !keystorePath.isNullOrBlank() && !releasePassword.isNullOrBlank()
+
     signingConfigs {
-        create("shelf") {
-            storeFile = file("photoshelf.keystore")
-            storePassword = "photoshelf-smola"
-            keyAlias = "photoshelf"
-            keyPassword = "photoshelf-smola"
+        if (hasReleaseKey) {
+            create("shelf") {
+                storeFile = file(keystorePath!!)
+                storePassword = releasePassword
+                keyAlias = "photoshelf"
+                keyPassword = releasePassword
+            }
         }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("shelf")
-        }
-        debug {
-            signingConfig = signingConfigs.getByName("shelf")
+            // Without the secret (e.g. a local Android Studio build) fall back to the debug key.
+            signingConfig = if (hasReleaseKey) signingConfigs.getByName("shelf") else signingConfigs.getByName("debug")
         }
     }
 

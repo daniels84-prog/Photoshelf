@@ -46,11 +46,11 @@ Your password is encrypted with the Android Keystore and never leaves the phone 
 ## Building the APK
 
 ### GitHub Actions (no Android Studio needed)
-1. Push this folder to a GitHub repository (private is recommended).
+1. Push this folder to a GitHub repository and add the two signing secrets (below).
 2. The **Build PhotoShelf APK** workflow runs automatically and publishes `PhotoShelf.apk` to a release named **app**.
 3. On the phone, download `PhotoShelf.apk` from that release and open it. Allow "Install unknown apps" for your browser when asked.
 
-Every push builds a new version that installs over the old one (the app is signed with the fixed key in `app/photoshelf.keystore`; keep the repository private).
+Every push builds a new version that installs over the old one. The signing key is not in this repository: the workflow reads it from two repository secrets, `PHOTOSHELF_KEYSTORE_BASE64` and `PHOTOSHELF_KEY_PASSWORD`. Nothing about any particular NAS is stored in the code; you enter your QuickConnect ID and account in the app.
 
 ### Android Studio
 Open the folder, let Gradle sync, then Run, or Build > Build APK(s).

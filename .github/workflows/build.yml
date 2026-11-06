@@ -22,7 +22,16 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Build signed APK
+        env:
+          KEYSTORE_BASE64: ${{ secrets.PHOTOSHELF_KEYSTORE_BASE64 }}
+          PHOTOSHELF_KEY_PASSWORD: ${{ secrets.PHOTOSHELF_KEY_PASSWORD }}
         run: |
+          if [ -z "$KEYSTORE_BASE64" ] || [ -z "$PHOTOSHELF_KEY_PASSWORD" ]; then
+            echo "::error::Add the PHOTOSHELF_KEYSTORE_BASE64 and PHOTOSHELF_KEY_PASSWORD repository secrets, then re-run this workflow."
+            exit 1
+          fi
+          echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/photoshelf.jks"
+          export PHOTOSHELF_KEYSTORE_FILE="$RUNNER_TEMP/photoshelf.jks"
           chmod +x gradlew
           ./gradlew --no-daemon assembleRelease
           cp app/build/outputs/apk/release/app-release.apk PhotoShelf.apk
